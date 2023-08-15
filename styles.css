@@ -1,0 +1,76 @@
+body {
+  font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #f8f8f8;
+  color: #1d1d1f;
+  margin: 0;
+  padding: 50px;
+}
+
+div {
+  text-align: center;
+  padding: 10px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  width: 60%;
+  font-size: 18px;
+  border: 1px solid #d1d1d1;
+  border-radius: 20px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #007aff;
+}
+
+button {
+  background-color: #007aff;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #005bb5;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the list items */
+}
+
+li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  width: 50%; /* Set the width of the list items */
+  margin: 10px auto; /* Center the list items */
+  overflow: hidden; /* Prevent content from spilling over */
+  background-color: #fff;
+  border: 1px solid #d1d1d1;
+  border-radius: 20px;
+}
+
+li span {
+  flex-grow: 1;
+  font-size: 18px;
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+  overflow: hidden; /* Hide overflow content */
+  text-overflow: ellipsis; /* Add ellipsis (...) when text overflows */
+}
+
+li button {
+  margin-left: 10px;
+}
+

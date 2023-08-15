@@ -17,12 +17,13 @@ function addTask(){
         };
         // Add the task object to the tasks array
         tasks.push(task);
+        saveTasks();
 
         // Clear the input field
         document.getElementById('taskInput').value = ""; 
 
         // Call this after adding the task to the array to display tasks
-        displayTasks(); 
+        displayTasks(tasks); 
     }
 
     console.log(tasks);
@@ -36,7 +37,7 @@ document.getElementById('addTaskButton').addEventListener('click', addTask)
 
 
 // Display Tasks being added
-function displayTasks(){
+function displayTasks(taskArray){
     // Get the element with ID 'taskList' where the tasks will be displayed
     const taskList = document.getElementById('taskList');
 
@@ -44,7 +45,7 @@ function displayTasks(){
     taskList.innerHTML = ''; 
 
     // Loop through the tasks array
-    for (let task of tasks){
+    for (let task of taskArray){
         // Create a new list item element for each task
         let listItem = document.createElement('li');
 
@@ -66,9 +67,23 @@ function displayTasks(){
             markTaskAsDone(task.id); // Pass the unique ID of the clicked task
         });
 
-        // Append the span and the button to the list item
+
+        // Create a "Delete" button for each task
+        let deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+
+
+        // Add a click event listener to delete the task
+        deleteButton.addEventListener('click',function(){
+            deleteTask(task.id);
+        });
+
+
+
+        // Append the span and the buttons to the list item
         listItem.appendChild(taskSpan);
         listItem.appendChild(doneButton);
+        listItem.appendChild(deleteButton);
 
         // Append the list item to the task list in the HTML
         taskList.appendChild(listItem);
@@ -81,12 +96,71 @@ function markTaskAsDone(taskId){
     for (let task of tasks){
         if (task.id === taskId){
             task.done = true;
+            saveTasks();
             break;
         }
     }
 
-    displayTasks(); // Update the display to reflect the change
+    displayTasks(tasks); // Update the display to reflect the change
 
 }
 
-//zzzzz
+
+
+// function to Delete a task
+function deleteTask(taskId){
+    // Find the task with the given ID and remove it from the array
+    for (let i = 0; i < tasks.length; i++){
+        if (tasks[i].id === taskId){
+            tasks.splice(i, 1) // removes the task at this index
+            saveTasks();
+            break;
+        }
+    }
+
+    displayTasks(tasks); // Update the display to reflect the change
+}
+
+
+
+
+
+
+// function to filter the tasks based on their status
+function filterTasks(status){
+    let filteredTasks = [] // An array to store the filtered tasks
+
+    // Loop through the tasks array
+    for (let i = 0; i< tasks.length; i++){
+        // Check the status parameter and compare with the 'done' property of the task
+        if (status === "all" || (status === "completed" && tasks[i].done) || (status == "pending" && !tasks[i].done)){
+            // If the condition matches, add the task to the filteredTasks array
+            filteredTasks.push(tasks[i]);
+        }
+    }
+    // call the displayTasks function, passing in the filteredTasks
+    displayTasks(filteredTasks)
+}
+
+
+
+
+
+
+
+// Function to save the current tasks to local storage
+function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks)); // Use 'tasks' instead of 'task'
+  }
+  
+  // Function to load the tasks from local storage when the page is loaded.
+  function loadTasks() {
+    const savedTasks = localStorage.getItem('tasks'); // This should match the key used in saveTasks
+    if (savedTasks) {
+      tasks = JSON.parse(savedTasks);
+      displayTasks(tasks);
+    }
+  }
+  
+  loadTasks(); // Call this at the start of your script
+  

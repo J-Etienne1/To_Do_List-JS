@@ -8,27 +8,19 @@
   </head>
 
   <body>
-
-
-
-    <div> <!--Tasks are added here-->
+    <div>
+      <!--Tasks are added here-->
       <input type="text" id="taskInput" placeholder="Enter a Task" />
       <button id="addTaskButton">Add Task</button>
+      <button onclick="filterTasks('all')">All</button>
+      <button onclick="filterTasks('completed')">Completed</button>
+      <button onclick="filterTasks('pending')">Pending</button>
     </div>
 
     <div>
-        <ul id="taskList"></ul> <!--Task will be displayed here-->
+      <ul id="taskList"></ul>
+      <!--Task will be displayed here-->
     </div>
-
-
-
-
-
-
-
-
-
-
 
     <script src="index.js" charset="UTF-8"></script>
   </body>
